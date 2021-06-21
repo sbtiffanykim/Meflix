@@ -1,6 +1,6 @@
-import { tvApi } from "api";
 import React from "react";
 import TVPresenter from "./TVPresenter";
+import { tvApi } from "api";
 
 // eslint-disable-next-line
 export default class extends React.Component {
@@ -14,12 +14,20 @@ export default class extends React.Component {
 
   async componentDidMount() {
     try {
-      const topRated = await tvApi.topRated();
-      const popular = await tvApi.popular();
-      const airingToday = await tvApi.airingToday();
-      console.log(topRated, popular, airingToday);
+      const {
+        data: { results: topRated },
+      } = await tvApi.topRated();
+      const {
+        data: { results: popular },
+      } = await tvApi.popular();
+      const {
+        data: { results: airingToday },
+      } = await tvApi.airingToday();
+      this.setState({ topRated, popular, airingToday });
     } catch {
-      this.setState({ error: "Can't find any TV show" });
+      this.setState({
+        error: "Can't find TV information.",
+      });
     } finally {
       this.setState({ loading: false });
     }
@@ -27,6 +35,7 @@ export default class extends React.Component {
 
   render() {
     const { topRated, popular, airingToday, loading, error } = this.state;
+    console.log(this.state);
     return (
       <TVPresenter
         topRated={topRated}
