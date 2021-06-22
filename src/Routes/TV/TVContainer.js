@@ -26,7 +26,7 @@ export default class extends React.Component {
       this.setState({ topRated, popular, airingToday });
     } catch {
       this.setState({
-        error: "Can't find TV information.",
+        error: "Cannot find any TV information.",
       });
     } finally {
       this.setState({ loading: false });

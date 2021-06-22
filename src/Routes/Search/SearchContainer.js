@@ -39,7 +39,7 @@ export default class extends React.Component {
       } = await tvApi.tvShowSearch(searchTerm);
       this.setState({ movieResults, tvResults });
     } catch {
-      this.setState({ error: "Cannot find any corresponding information" });
+      this.setState({ error: "Nothing Found" });
     } finally {
       this.setState({ loading: false });
     }
